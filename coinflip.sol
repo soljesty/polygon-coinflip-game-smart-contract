@@ -33,9 +33,10 @@ contract CoinFlip {
   // method to place a bet on the coin flip
   function placeBet(uint256 amount) public payable {
     require(amount > 0, 'You must bet more than 0 MATIC');
-    require(amount <= msg.value, 'You must send the correct amount of MATIC');
+    require(amount == msg.value, 'You must send the correct amount of MATIC');
     require(player == msg.sender, 'Only the player can place a bet');
     betAmount = amount;
+    balances[player] += amount;
   }
 
   // method to flip the coin and determine the result
@@ -48,10 +49,10 @@ contract CoinFlip {
   // Method to withdraw money from the game
   function withdraw(uint amount) public {
     // Check if the player has sufficient balance to withdraw the specified amount
-    require(balances[msg.sender] >= amount, "Insufficient balance");
+    require(balances[player] >= amount, "Insufficient balance");
 
     // Deduct the withdrawal amount from the player's balance
-    balances[msg.sender] -= amount;
+    balances[player] -= amount;
 
     // Send the withdrawal amount to the player's wallet
     msg.sender.transfer(amount);
