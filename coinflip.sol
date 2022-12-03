@@ -11,6 +11,9 @@ contract CoinFlip {
   // the amount of MATIC that the player has bet
   uint256 betAmount;
 
+  // Store the player's balances
+  mapping(address => uint) public balances;
+
   // the result of the coin flip
   bool result;
 
@@ -42,4 +45,15 @@ contract CoinFlip {
     emit CoinFlipResult(result);
   }
 
+  // Method to withdraw money from the game
+  function withdraw(uint amount) public {
+    // Check if the player has sufficient balance to withdraw the specified amount
+    require(balances[msg.sender] >= amount, "Insufficient balance");
+
+    // Deduct the withdrawal amount from the player's balance
+    balances[msg.sender] -= amount;
+
+    // Send the withdrawal amount to the player's wallet
+    msg.sender.transfer(amount);
+  }
 }
