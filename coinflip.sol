@@ -32,8 +32,8 @@ contract CoinFlip {
 
   // method to place a bet on the coin flip
   function placeBet(uint256 amount) public payable {
-    require(amount > 0, 'You must bet more than 0 POLY');
-    require(amount <= msg.value, 'You must send the correct amount of POLY');
+    require(amount > 0, 'You must bet more than 0 MATIC');
+    require(amount <= msg.value, 'You must send the correct amount of MATIC');
     require(player == msg.sender, 'Only the player can place a bet');
     betAmount = amount;
   }
