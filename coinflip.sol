@@ -4,12 +4,11 @@ import "https://github.com/polygon-network/solidity/contracts/interfaces/IBridge
 import "https://github.com/polygon-network/solidity/contracts/interfaces/IBridgeMapper.sol";
 import "https://github.com/polygon-network/solidity/contracts/PolygonMapper.sol";
 
-// the contract for the coin flip game
 contract CoinFlip {
   // the address of the player
   address player;
 
-  // the amount of POLY that the player has bet
+  // the amount of MATIC that the player has bet
   uint256 betAmount;
 
   // the result of the coin flip
@@ -43,3 +42,4 @@ contract CoinFlip {
     emit CoinFlipResult(result);
   }
 
+}
