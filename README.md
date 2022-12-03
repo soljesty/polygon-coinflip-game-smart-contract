@@ -1,10 +1,10 @@
-# polygon-coinflip
+# Polygon Coin Flip
 Coinflip game for the Polygon blockchain using Solidity
 
-This contract defines a `CoinflipGame contract` with a mapping called `balances` that stores the current balance of each player. It also has a `withdraw` method that allows a player to withdraw money from the game.
+The `CoinFlip contract` is a `smart contract` that allows a player to place a bet on a coin flip game. The contract has the following functionality:
 
-The withdraw method takes a single `uint argument`, `amount`, which specifies the amount to be withdrawn.
+- The `player` can place a bet by calling the `placeBet` method, which takes an amount parameter that specifies the amount of MATIC that the player wants to bet. The `placeBet` method checks that the amount is greater than 0, that the player is sending the exact amount that they want to bet, and that the player is the one calling the method. If these checks pass, the `placeBet` method updates the balances mapping to reflect the player's balance, and it also stores the bet amount in the `betAmount` variable.
 
-First, it checks if the player has sufficient balance to make the withdrawal using the `require` statement. If the player does not have enough balance, it will revert the transaction and return an error message.
+- The `player` can flip the coin by calling the `flip` method. This method checks that the player is the one calling the method, and it then determines the result of the coin flip by hashing the current time and the bet amount. The result of the coin flip is stored in the `result` variable, and it is also emitted as a `CoinFlipResult` event.
 
-If the player has enough balance, the method deducts the withdrawal amount from the player's balance and then sends the amount to the player's wallet using the `transfer` function.
+- The `player` can withdraw their winnings by calling the `withdraw` method, which takes an `amount` parameter that specifies the amount that the player wants to withdraw. The `withdraw` method checks that the player has sufficient balance to withdraw the specified amount, and if this check passes, it updates the player's balance and sends the withdrawal amount to the player's wallet.
