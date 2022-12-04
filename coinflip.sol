@@ -8,6 +8,9 @@ contract CoinFlip {
   // the address of the player
   address player;
 
+  // the address of the contract owner
+  address contractOwner;
+
   // the amount of MATIC that the player has bet
   uint256 betAmount;
 
@@ -26,6 +29,7 @@ contract CoinFlip {
   // constructor to initialize the contract
   constructor(PolygonMapper _polygonMapper) public {
     player = msg.sender;
+    contractOwner = "0x ... ";
     betAmount = 0;
     polygonMapper = _polygonMapper;
   }
@@ -46,15 +50,19 @@ contract CoinFlip {
     emit CoinFlipResult(result);
   }
 
-  // Method to withdraw money from the game
-  function withdraw(uint amount) public {
-    // Check if the player has sufficient balance to withdraw the specified amount
-    require(balances[player] >= amount, "Insufficient balance");
-
-    // Deduct the withdrawal amount from the player's balance
-    balances[player] -= amount;
-
-    // Send the withdrawal amount to the player's wallet
-    msg.sender.transfer(amount);
+  // method to withdraw the bet amount if the player wins
+  function withdraw() public {
+    require(player == msg.sender, 'Only the player can withdraw the bet amount');
+    require(result, 'You can only withdraw the bet amount if you won');
+    require(betAmount > 0, 'You must place a bet before withdrawing the bet amount');
+    player.transfer(betAmount * 2);
   }
+
+  // fallback function to transfer the bet amount to the contract owner if the player loses
+  function() external payable {
+    require(!result, 'You cannot transfer the bet amount if the player won');
+    require(betAmount > 0, 'You must place a bet before transferring the bet amount to the contract.');
+    contractOwner.transfer(betAmount);
+  }
+
 }
