@@ -18,3 +18,6 @@ The contract also includes several checks to ensure that only the player can per
 Additionally, the contract includes a `fallback function` that is executed when the contract receives an ether transfer. This function checks if the player has lost the coin flip, and if so, it transfers the bet amount to the contract owner.
 
 Overall, this contract provides a basic implementation of a coin flip game on the Polygon (formerly Matic) blockchain.
+
+# Contact
+https://t.me/soljesty
